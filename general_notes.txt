@@ -3,3 +3,67 @@ To run them we use rustc file_name -> ./main (the func name in the program)
 If you find an error linker cc not found run:
     sudo apt-get update
     sudo apt install build-essential
+
+hello cargo:
+    cargo is Rust's build system and package manager
+    helps you build your code
+    download the libraries your code depends on
+    building those libraries
+    Makes adding dependencies easier
+    How we use it:
+        cargo new hello_cargo - creates a new directory and project called hello_cargo and cargo creates its files in a dir of the same name
+            - generates two files Cargo.toml and src dir with main.rs file inside
+            - also inits a new Git repository along with a .gitignore file if you were working on a non git initialized dir
+            - can be overwritten by cargo new --vcs=git
+            - Cargo.toml (Tom's obvious minimal language) is cargo's config format
+                [package] 
+                name = "hello_cargo"
+                version = "0.1.0"
+                edition = "2021"
+
+                # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+                [dependencies]
+                - list any of your projects dependencies
+                - packages of code are called crates in Rust
+
+            -src directory is where your source files should live in
+            -top level project dir is where your readme files, license info and config files should live and anything else not related to your code
+
+        You can see how cargo helps you organize your codes
+    
+    Buildin a cargo project
+        cargo build - in your working dir
+        the result is the binary is placed in a directory named debug -> target/debug/hello_cargo
+        You can run the binary executable using ./target/debug/hello_cargo
+        running cargo build for the first time also creates a new file at the top called Cargo.lock that keeps track of exact versions
+        of dependencies in your project - cargo manages its content for you so you dont have to manually change it
+
+    To both compile and run the program at the same time you :
+        use cargo run on the working dir
+
+    To quicky check if your code compiles you can use:
+        cargo check - doesnt produce an executable though
+        it is often much faster than cargo build since it skips the steps of producing an executable
+        Periodically run cargo check to make sure it compiles the finally run cargo build after youve finished working on the project
+
+    Summary of using cargo:
+        create a new project using cargo new
+        build a project using cargo build
+        build and run a project in one step using cargo run
+        build a project without producing a binary to check for errors using cargo check
+        storage of the build is not in the same dir but in target/debug directory
+
+    Building for release:
+        use cargo build --release to compile it with optimizations
+        Creates an executable in .target/release and makes your code run faster
+        Turning them on though lengthens the time for your program to compile
+        Benchmarking your code's running time be sure to run cargo build --release and benchmark with the executable in target/ release
+
+        
+
+
+
+
+
+
