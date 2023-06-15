@@ -1,0 +1,5 @@
+Rust programs are saved with .rs extension
+To run them we use rustc file_name -> ./main (the func name in the program)
+If you find an error linker cc not found run:
+    sudo apt-get update
+    sudo apt install build-essential
