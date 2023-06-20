@@ -1,0 +1,25 @@
+Rust is a statically typed language
+    there are two data types: scalar and compund
+    let guess: u32 = "42".parse().expect("Not a number")
+
+Scalar types: represents a single value
+    include: integers, floating-point numbers, booleans and characters
+    length    signed  unsigned
+    8-bit       i8      u8
+    16-bit      i16     u16
+    32-bit      i32     u32
+    64-bit      i64     u64
+    128-bit     i128    u128
+    arch        isize   usize
+
+    signed numbers are stored using two complement representation: 2^n-1 to 2^n-1 - 1 e.g i8 = 128 - 127
+    unsigned numbers 0 to 2^n-1 u8 0 -255
+    Examples: decimal = 98_222
+                hex = 0xff
+                octal = 0o77
+                binary = ob1111_0000
+                byte = b'A'
+
+    
+
+
