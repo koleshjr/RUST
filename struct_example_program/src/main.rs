@@ -44,6 +44,8 @@ fn struct_rectangle(){
 
     println!("The rectangle is: {:#?}", rect1); //pretty print
     println! ("Area of the rectangle is: {} ", struct_area(&rect1));
+
+    //dbg macro is useful when trying to understand what your code is doing
     dbg!(&rect1); //prints it out on the stderr, instead of stdout like println, we dont want ownership here so we use a reference
 }
 
