@@ -18,4 +18,5 @@ serde_json = "1.0"
 
 # dotenv helps in seamless environment variable loading, error handling approachess for missing variables , interoperates with the std::env module
 dotenv = "0.15.0"
+clap = "2.33"
 

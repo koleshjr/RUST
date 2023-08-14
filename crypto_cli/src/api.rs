@@ -56,7 +56,7 @@ use reqwest::Client;
 use reqwest::Error;
 
 // tokio enabled assynchronous function that requests the endpoint with client.get() after creating a client instance with the client::new mwthod
-pub async fn crypto() -> Result<(), Error> {
+pub async fn crypto(cryptos: Vec<&str>, convert: &str) -> Result<(), Error> {
     //  load the environment variables
 
     dotenv().ok();
@@ -65,10 +65,18 @@ pub async fn crypto() -> Result<(), Error> {
     let client = Client::new();
     
     let url = " https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest ";
+    // let params = [
+    //     ("id", "1,2,3,4"),
+    //     ("convert", "USD"), //CONVERT MARKET VALUES TO USD
+    // ];
+
     let params = [
-        ("id", "1,2,3,4"),
-        ("convert", "USD"), //CONVERT MARKET VALUES TO USD
+
+        ("id", &cryptos.join(",")),
+        ("convert", &convert.to_string()),
     ];
+
+    println!("{:?}", params);
 
     let response = client.get(url)
     
