@@ -1,0 +1,21 @@
+[package]
+name = "crypto_cli"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+tokio = {version = "1.15", features = ["full"]}  #interoperates with reqwest for assynchronous programming
+reqwest = {version = "0.11", features = ["json"]}
+
+#The two below help with JSON serialization and deserialization(easily convert JSON data into a structured format that you can easily manipulate within your programs)
+# serialization is to convert a RUST type to JSON for other operations
+#deserialization is to transform JSON data to RUST data types
+
+serde  = {version = "1.0", features = ["derive"]}
+serde_json = "1.0"
+
+# dotenv helps in seamless environment variable loading, error handling approachess for missing variables , interoperates with the std::env module
+dotenv = "0.15.0"
+
