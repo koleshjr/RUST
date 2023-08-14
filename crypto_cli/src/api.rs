@@ -8,6 +8,8 @@ use std::env;
 use dotenv::dotenv;
 
 
+
+// here we are creating structs to store the data we extract from the API
 #[derive(Debug, Deserialize, Serialize)]
 struct ApiResponse {
     data: Data
@@ -65,10 +67,7 @@ pub async fn crypto(cryptos: Vec<&str>, convert: &str) -> Result<(), Error> {
     let client = Client::new();
     
     let url = " https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest ";
-    // let params = [
-    //     ("id", "1,2,3,4"),
-    //     ("convert", "USD"), //CONVERT MARKET VALUES TO USD
-    // ];
+
 
     let params = [
 
