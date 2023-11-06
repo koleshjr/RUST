@@ -1,0 +1,76 @@
+Lifetimes: ensure that references are valid as long as we need them to be 
+Each reference in Rust has a lifetime 
+Their main aim is to prevent dangling references:
+
+Look at this example:
+        fn longest(x: &str, y:&str) -> &str {
+            if x.len() > y.len() {
+                x 
+            } else {
+                y
+            }
+        }
+
+        fn main() {
+            let string_1 = String::from("abcd");
+            let string_2 = "xyz";
+
+            let result = longest(string_1.as_str(), string_2);
+            println! ("The longest string is {}", result);
+        }
+
+        we get an error: 
+            1 | fn longest(x: &str, y:&str) -> &str {
+  |               ----    ----     ^ expected named lifetime parameter
+
+        - this is because we dont know the concrete values that will be passed into this function, so we do not know whether the if case or the else case will execute
+        - we also dont know the concrete lifetimes of the references that will be passed in, so we cannot look at their respective scopes 
+
+    Lifetime Annotation Syntax:
+        describe the relationships of the lifetimes of multipe references to each other without affecting the lifetimes
+
+        the names of lifetime parameters must start with an apostrophe(') and are usually all lowercase and very short like generic types 
+
+            &i32
+            &'a i32     // a reference with an explicit lifetime 
+            &'a mut i32 //a mutable reference with an explicit lifetime 
+
+
+    Lifetime elision rules: patterns programmed into Rust's analysis of references 
+        they are a set of particular cases that the compiler won't guess what the lifetime of the remaiing references should be .
+        instead of guessing the compiler will give you an error that you can resolve by adding the lifetime Annotations 
+
+    Input lifetimes: Lifetimes on functions or method params are called input lifetimes and lifetimes on return values are called output lifetimes 
+
+    Rules that the compiler follows:
+    - The first rule is that the compiler assigns a lifetime parameter to each parameter that’s a reference.
+     In other words, a function with one parameter gets one lifetime parameter: fn foo<'a>(x: &'a i32);
+      a function with two parameters gets two separate lifetime parameters: fn foo<'a, 'b>(x: &'a i32, y: &'b i32); and so on.
+
+    - The second rule is that, if there is exactly one input lifetime parameter, that lifetime is assigned to all output 
+    lifetime parameters: fn foo<'a>(x: &'a i32) -> &'a i32.
+
+    - The third rule is that, if there are multiple input lifetime parameters, but one of them is &self or &mut self because
+     this is a method, the lifetime of self is assigned to all output lifetime parameters. This third rule makes methods much
+      nicer to read and write because fewer symbols are necessary.   
+
+    The static lifetime:
+        denotes that the affected reference can live for the entire duration of the program
+        all strings have the 'static lifetime which we can annotate as follows:
+
+            let s: &'static str = 'I have a static lifetime 
+
+        Before specifying 'static as the lifetime for a reference , think about whether the reference you have actually lives the entire lifetime of your program or not 
+        and whether you want it to 
+            suggesstions: use 'static lifetime in error messages but consider the above point
+
+        Most of the time an error message suggesting the 'static lifetime results from attempting to create a dangling reference or a mismatch of the available lifetimes.
+        In such cases, the solution is fixing those problems not specifying the 'static lifetime 
+
+
+    Summary:
+        Generic type params let you apply the code to different types.
+        Traits and trait bounds ensure that even though the types are generic they'll have the behavior the cide needs 
+        lifetime annotations to ensure thst this flexible code won't have any dangling references 
+        And all this checks happen at compile time .
+
